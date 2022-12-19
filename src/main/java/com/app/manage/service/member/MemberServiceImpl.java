@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,13 @@ public class MemberServiceImpl implements MemberService {
         return allMember;
     }
 
+    @Override
+    public MemberDto getMyAccountInfo(Member presentMember) {
+        Member loggedIn = memberRepository.findById(presentMember.getMemberId()).orElseThrow(()->new NoSuchElementException("ID not found"));
+        MemberDto memberDto = entityToDto(loggedIn);
+
+        return memberDto;
+    }
 
     // memberId를 가지고 db에서 값을 찾아옴, 자동으로 password를 비교해주는 기능이 있다
     @Override
