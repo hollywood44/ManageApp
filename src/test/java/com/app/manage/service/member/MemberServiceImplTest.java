@@ -3,6 +3,7 @@ package com.app.manage.service.member;
 import com.app.manage.dto.MemberDto;
 import com.app.manage.entity.Member;
 import com.app.manage.entity.utility.Auth;
+import com.app.manage.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,8 @@ class MemberServiceImplTest {
 
     @Autowired
     MemberService memberService;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     @Rollback(value = false)
@@ -41,5 +44,16 @@ class MemberServiceImplTest {
         for (Member member : list) {
             System.out.println("id : " + member.getMemberId() + ", password : " + member.getPassword());
         }
+    }
+
+    @Test
+    void findPhoneNumber() {
+        Member membercheck = Member.builder()
+                .memberId("member1")
+                .phoneNumber("010-0000-0000")
+                .build();
+        Member checked = memberRepository.findByPhoneNumber(membercheck.getPhoneNumber()).get();
+        System.out.println(checked.getMemberId());
+        System.out.println(checked.getPhoneNumber());
     }
 }

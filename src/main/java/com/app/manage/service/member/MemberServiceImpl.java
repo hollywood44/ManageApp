@@ -51,6 +51,22 @@ public class MemberServiceImpl implements MemberService {
         return memberDto;
     }
 
+    @Override
+    public MemberDto modifyMyAccountInfo(String memberId,MemberDto modifyInfo) {
+        Member loggedIn = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("ID not found"));
+
+        Optional<Member> phoneCheck = memberRepository.findByPhoneNumber(modifyInfo.getPhoneNumber());
+
+        if (phoneCheck.isPresent()) {
+            throw new RuntimeException("이미 존재하는 전화번호 입니다.");
+        } else {
+            loggedIn.modifyInfo(modifyInfo);
+            memberRepository.save(loggedIn);
+
+            return entityToDto(loggedIn);
+        }
+    }
+
     // memberId를 가지고 db에서 값을 찾아옴, 자동으로 password를 비교해주는 기능이 있다
     @Override
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {

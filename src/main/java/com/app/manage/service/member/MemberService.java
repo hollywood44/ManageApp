@@ -39,4 +39,7 @@ public interface MemberService extends UserDetailsService {
 
     // 로그인된 회원 자신 정보 가져오기
     public MemberDto getMyAccountInfo(Member presentMember);
+
+    // 로그인된 회원 자신 정보 수정하기
+    public MemberDto modifyMyAccountInfo(String memberId,MemberDto modifyInfo);
 }

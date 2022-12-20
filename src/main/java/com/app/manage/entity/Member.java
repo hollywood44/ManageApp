@@ -1,5 +1,6 @@
 package com.app.manage.entity;
 
+import com.app.manage.dto.MemberDto;
 import com.app.manage.entity.utility.Auth;
 import com.app.manage.entity.utility.TimeEntity;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -36,6 +38,15 @@ public class Member extends TimeEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Auth auth;
 
+
+    public void modifyInfo(MemberDto modify) {
+        this.name = modify.getName();
+        this.phoneNumber = modify.getPhoneNumber();
+        if (!modify.getPassword().isEmpty()) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            this.password = encoder.encode(modify.getPassword());
+        }
+    }
 
     // 계정의 권한 목록 리턴
     @Override
