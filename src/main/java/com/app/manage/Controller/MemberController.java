@@ -19,9 +19,20 @@ public class MemberController {
         return "MainPage";
     }
 
+    @PostMapping("/signUp")
+    public String singUp(MemberDto dto) {
+        memberService.signUp(dto);
+        return dto.getMemberId();
+    }
+
     @GetMapping("/getMyInfo")
     public MemberDto getMyInfo(@AuthenticationPrincipal Member member) {
         return memberService.getMyAccountInfo(member);
+    }
+
+    @GetMapping("/memberInfo/{memberId}")
+    public MemberDto getMemberInfo(@PathVariable(name = "memberId") String memberId,@AuthenticationPrincipal Member member) {
+        return memberService.getAccountInfo(memberId,member.getAuth());
     }
 
     @PutMapping("/modifyMyInfo/{memberId}")

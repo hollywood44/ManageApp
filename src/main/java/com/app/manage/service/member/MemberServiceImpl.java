@@ -3,6 +3,7 @@ package com.app.manage.service.member;
 
 import com.app.manage.dto.MemberDto;
 import com.app.manage.entity.Member;
+import com.app.manage.entity.utility.Auth;
 import com.app.manage.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,6 +50,21 @@ public class MemberServiceImpl implements MemberService {
         MemberDto memberDto = entityToDto(loggedIn);
 
         return memberDto;
+    }
+
+
+    @Override
+    public MemberDto getAccountInfo(String memberId, Auth auth) {
+        if (auth.equals(Auth.Member) || auth.equals(Auth.ProductManager)) {
+            Member findMember = memberRepository.findById(memberId).orElseThrow(()-> new RuntimeException("오류 발생"));
+            MemberDto findDto = entityToDto(findMember);
+            findDto.setPhoneNumber("");
+            return findDto;
+        } else {
+            Member findMember = memberRepository.findById(memberId).orElseThrow(()-> new RuntimeException("오류 발생"));
+            MemberDto findDto = entityToDto(findMember);
+            return findDto;
+        }
     }
 
     @Override

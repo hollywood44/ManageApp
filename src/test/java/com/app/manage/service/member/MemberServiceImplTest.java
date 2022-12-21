@@ -56,4 +56,10 @@ class MemberServiceImplTest {
         System.out.println(checked.getMemberId());
         System.out.println(checked.getPhoneNumber());
     }
+
+    @Test
+    void authTest() {
+        Member member = memberRepository.findById("member1").get();
+        System.out.println(member.getAuth());
+    }
 }

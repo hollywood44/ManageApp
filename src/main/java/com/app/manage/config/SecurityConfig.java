@@ -23,6 +23,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http.authorizeRequests()
                 .antMatchers("/**").permitAll() // 모두 접근 허용
                 .antMatchers().hasRole("admin") // ROLE_admin 만 접근 허용
@@ -41,7 +42,9 @@ public class SecurityConfig {
                 .and()
                 .exceptionHandling() // 예외 핸들러
                 .accessDeniedPage("/member/deniedPage"); // 권한없는 접근시 이동할 페이지
+
         http.csrf().disable();
+
         return http.build();
     }
 
