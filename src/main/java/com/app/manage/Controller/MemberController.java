@@ -39,4 +39,15 @@ public class MemberController {
     public MemberDto modifyMyInfo(MemberDto memberDto, @PathVariable(name = "memberId")String memberId) {
        return memberService.modifyMyAccountInfo(memberId,memberDto);
     }
+
+    @PatchMapping("/modifyAuth/{memberId}")
+    public MemberDto modifyAuth(@RequestParam(name = "auth") String auth,@PathVariable(name = "memberId")String memberId) {
+        return memberService.modifyMemberAuth(memberId, auth);
+    }
+
+    @DeleteMapping("/delete/{memberId}")
+    public String deleteMember(@PathVariable(name = "memberId")String memberId) {
+        return memberService.deleteMember(memberId);
+    }
+
 }

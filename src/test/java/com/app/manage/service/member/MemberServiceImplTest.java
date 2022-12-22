@@ -28,11 +28,11 @@ class MemberServiceImplTest {
     @Rollback(value = false)
     void signUp() {
         MemberDto dto = MemberDto.builder()
-                .memberId("member1")
-                .name("member1")
+                .memberId("member2")
+                .name("member2")
                 .auth(Auth.Member)
                 .password("1234")
-                .phoneNumber("010-0000-0001")
+                .phoneNumber("010-0000-0002")
                 .build();
 
         System.out.println(memberService.signUp(dto));

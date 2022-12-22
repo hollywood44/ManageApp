@@ -45,4 +45,10 @@ public interface MemberService extends UserDetailsService {
 
     // 로그인된 회원 자신 정보 수정하기
     public MemberDto modifyMyAccountInfo(String memberId,MemberDto modifyInfo);
+
+    // 회원 등급 수정
+    public MemberDto modifyMemberAuth(String memberId,String auth);
+
+    // 회원 탈퇴
+    public String deleteMember(String memberId);
 }

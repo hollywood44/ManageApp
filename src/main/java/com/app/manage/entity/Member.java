@@ -48,6 +48,23 @@ public class Member extends TimeEntity implements UserDetails {
         }
     }
 
+    public void modifyAuth(String auth) {
+        switch (auth) {
+            case "Member":
+                this.auth = Auth.Member;
+                break;
+            case "Admin":
+                this.auth = Auth.Admin;
+                break;
+            case "ProductManager":
+                this.auth = Auth.ProductManager;
+                break;
+            case "MemberManager":
+                this.auth = Auth.MemberManager;
+                break;
+        }
+    }
+
     // 계정의 권한 목록 리턴
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

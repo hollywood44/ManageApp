@@ -83,6 +83,23 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    @Override
+    public MemberDto modifyMemberAuth(String memberId, String auth) {
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new NoSuchElementException("Id Not Found"));
+        member.modifyAuth(auth);
+        memberRepository.save(member);
+        MemberDto dto = entityToDto(member);
+        return dto;
+    }
+
+    @Override
+    public String deleteMember(String memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new NoSuchElementException("Id Not Found"));
+        memberRepository.deleteById(memberId);
+
+        return memberId;
+    }
+
     // memberId를 가지고 db에서 값을 찾아옴, 자동으로 password를 비교해주는 기능이 있다
     @Override
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
