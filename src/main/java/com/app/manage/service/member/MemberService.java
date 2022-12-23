@@ -35,7 +35,7 @@ public interface MemberService extends UserDetailsService {
     public String signUp(MemberDto memberDto);
 
     // 모든 회원 정보 불러오기
-    public List<Member> getAllMember();
+    public List<MemberDto> getAllMember();
 
     // 로그인된 회원 자신 정보 가져오기
     public MemberDto getMyAccountInfo(Member presentMember);
@@ -45,6 +45,9 @@ public interface MemberService extends UserDetailsService {
 
     // 로그인된 회원 자신 정보 수정하기
     public MemberDto modifyMyAccountInfo(String memberId,MemberDto modifyInfo);
+
+    // 회원 정보 수정
+    public MemberDto modifyMemberInfo(String memberId, MemberDto modifyInfo);
 
     // 회원 등급 수정
     public MemberDto modifyMemberAuth(String memberId,String auth);

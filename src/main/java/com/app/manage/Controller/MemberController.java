@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -30,6 +32,11 @@ public class MemberController {
         return memberService.getMyAccountInfo(member);
     }
 
+    @GetMapping("/memberList")
+    public List<MemberDto> getMemberList() {
+        return memberService.getAllMember();
+    }
+
     @GetMapping("/memberInfo/{memberId}")
     public MemberDto getMemberInfo(@PathVariable(name = "memberId") String memberId,@AuthenticationPrincipal Member member) {
         return memberService.getAccountInfo(memberId,member.getAuth());
@@ -38,6 +45,11 @@ public class MemberController {
     @PutMapping("/modifyMyInfo/{memberId}")
     public MemberDto modifyMyInfo(MemberDto memberDto, @PathVariable(name = "memberId")String memberId) {
        return memberService.modifyMyAccountInfo(memberId,memberDto);
+    }
+
+    @PutMapping("/modifyMemberInfo/{memberId}")
+    public MemberDto modifyMemberInfo(MemberDto memberDto, @PathVariable(name = "memberId") String memberId) {
+        return memberService.modifyMemberInfo(memberId, memberDto);
     }
 
     @PatchMapping("/modifyAuth/{memberId}")

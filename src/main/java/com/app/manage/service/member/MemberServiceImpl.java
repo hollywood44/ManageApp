@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,9 +40,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> getAllMember() {
+    public List<MemberDto> getAllMember() {
         List<Member> allMember = memberRepository.findAll();
-        return allMember;
+        List<MemberDto> memberList = allMember.stream().map(member -> entityToDto(member)).collect(Collectors.toList());
+        return memberList;
     }
 
     @Override
@@ -81,6 +83,15 @@ public class MemberServiceImpl implements MemberService {
 
             return entityToDto(loggedIn);
         }
+    }
+
+    @Override
+    public MemberDto modifyMemberInfo(String memberId, MemberDto modifyInfo) {
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new NoSuchElementException("Id Not Found"));
+        member.modifyInfo(modifyInfo);
+        memberRepository.save(member);
+        MemberDto dto = entityToDto(member);
+        return dto;
     }
 
     @Override
