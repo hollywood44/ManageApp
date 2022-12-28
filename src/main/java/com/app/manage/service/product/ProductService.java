@@ -3,6 +3,8 @@ package com.app.manage.service.product;
 import com.app.manage.dto.ProductDto;
 import com.app.manage.entity.Product;
 
+import java.util.List;
+
 public interface ProductService {
 
     default Product dtoToEntity(ProductDto dto) {
@@ -15,5 +17,26 @@ public interface ProductService {
                 .build();
         return entity;
     }
+
+    default ProductDto entityToDto(Product entity) {
+        ProductDto dto = ProductDto.builder()
+                .productId(entity.getProductId())
+                .productName(entity.getProductName())
+                .productPrice(entity.getProductPrice())
+                .productStock(entity.getProductStock())
+                .location(entity.getLocation())
+                .build();
+        return dto;
+    }
+
+
+    // 상품 등록
     String pushProduct(ProductDto product);
+
+    // 상품 목록 조회
+    List<ProductDto> getProductList();
+
+    // 상품 상세 조회
+    ProductDto getProductDetail(String productId);
+
 }

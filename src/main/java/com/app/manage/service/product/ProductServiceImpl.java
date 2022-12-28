@@ -6,7 +6,10 @@ import com.app.manage.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +28,17 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public List<ProductDto> getProductList() {
+        List<Product> entityList = productRepository.findAll();
+        List<ProductDto> productList = entityList.stream().map(e -> entityToDto(e)).collect(Collectors.toList());
+        return productList;
+    }
 
+    @Override
+    public ProductDto getProductDetail(String productId) {
+        Product entity = productRepository.findById(productId).orElseThrow(()->new NoSuchElementException("product not found"));
+        ProductDto detail = entityToDto(entity);
+        return detail;
+    }
 }

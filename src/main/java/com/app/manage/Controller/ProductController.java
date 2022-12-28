@@ -2,12 +2,13 @@ package com.app.manage.Controller;
 
 import com.app.manage.dto.ProductDto;
 import com.app.manage.service.product.ProductService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,4 +24,17 @@ public class ProductController {
         log.trace(product);
         return product;
     }
+
+    @GetMapping("/list")
+    public List<ProductDto> getProductList() {
+        List<ProductDto> list = productService.getProductList();
+        return list;
+    }
+
+    @GetMapping("/detail/{productId}")
+    public ProductDto getProductDetail(@PathVariable(name = "productId")String productId) {
+        ProductDto detail = productService.getProductDetail(productId);
+        return detail;
+    }
+
 }
