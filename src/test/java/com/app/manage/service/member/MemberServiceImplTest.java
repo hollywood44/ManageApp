@@ -38,13 +38,13 @@ class MemberServiceImplTest {
         System.out.println(memberService.signUp(dto));
     }
 
-    @Test
-    void getAllMember() {
-        List<Member> list = memberService.getAllMember();
-        for (Member member : list) {
-            System.out.println("id : " + member.getMemberId() + ", password : " + member.getPassword());
-        }
-    }
+//    @Test
+//    void getAllMember() {
+//        List<Member> list = memberService.getAllMember();
+//        for (Member member : list) {
+//            System.out.println("id : " + member.getMemberId() + ", password : " + member.getPassword());
+//        }
+//    }
 
     @Test
     void findPhoneNumber() {
