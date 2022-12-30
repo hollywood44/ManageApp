@@ -39,4 +39,11 @@ public interface ProductService {
     // 상품 상세 조회
     ProductDto getProductDetail(String productId);
 
+    // 상품 수정
+    ProductDto modifyProduct(String productId,ProductDto modify);
+
+    // 상품 삭제
+    String deleteProduct(String productId);
+
+
 }

@@ -37,4 +37,18 @@ public class ProductController {
         return detail;
     }
 
+    @PatchMapping("/modify/{productId}")
+    public ProductDto modifyProduct(@PathVariable(name = "productId") String productId, ProductDto modify) {
+        ProductDto modified = productService.modifyProduct(productId, modify);
+
+        return modified;
+    }
+
+    @DeleteMapping("/delete/{productId}")
+    public String deleteProduct(@PathVariable(name = "productId")String productId) {
+        String deleted = productService.deleteProduct(productId);
+
+        return deleted;
+    }
+
 }

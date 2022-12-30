@@ -41,4 +41,20 @@ public class ProductServiceImpl implements ProductService {
         ProductDto detail = entityToDto(entity);
         return detail;
     }
+
+    @Override
+    public ProductDto modifyProduct(String productId,ProductDto modify) {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new NoSuchElementException("product not found"));
+        product = dtoToEntity(modify);
+        productRepository.save(product);
+
+        return entityToDto(product);
+    }
+
+    @Override
+    public String deleteProduct(String productId) {
+        productRepository.deleteById(productId);
+
+        return productId;
+    }
 }
