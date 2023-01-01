@@ -58,8 +58,8 @@ public class MemberController {
     }
 
     @DeleteMapping("/delete/{memberId}")
-    public String deleteMember(@PathVariable(name = "memberId")String memberId) {
-        return memberService.deleteMember(memberId);
+    public String deleteMember(@PathVariable(name = "memberId")String memberId,@AuthenticationPrincipal Member member) {
+        return memberService.deleteMember(memberId,member);
     }
 
 }

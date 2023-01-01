@@ -104,9 +104,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String deleteMember(String memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(()->new NoSuchElementException("Id Not Found"));
-        memberRepository.deleteById(memberId);
+    public String deleteMember(String memberId,Member member) {
+        if (member.getAuth().equals(Auth.MemberManager) || member.getAuth().equals(Auth.Admin)) {
+            Member deleteMember = memberRepository.findById(memberId).orElseThrow(()->new NoSuchElementException("Id Not Found"));
+            memberRepository.deleteById(memberId);
+        } else if (member.getMemberId().equals(memberId)) {
+            Member deleteMember = memberRepository.findById(memberId).orElseThrow(()->new NoSuchElementException("Id Not Found"));
+            memberRepository.deleteById(memberId);
+        }
+
 
         return memberId;
     }

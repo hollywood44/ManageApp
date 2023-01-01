@@ -25,9 +25,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/**").permitAll() // 모두 접근 허용
-                .antMatchers().hasRole("admin") // ROLE_admin 만 접근 허용
-                .antMatchers().hasRole("member") // ROLE_member 만 접근 허용
+//                .antMatchers("/member/signIn","/member/signOut","/member/main").permitAll() // 모두 접근 허용
+//                .antMatchers("/member/modifyMemberInfo/**","/member/modifyAuth/**").hasRole("Admin") // ROLE_admin 만 접근 허용
+//                .antMatchers("/member/modifyMemberInfo/**").hasAnyRole("MemberManager","Admin") // ROLE_admin 만 접근 허용
+//                .antMatchers("/product/push","/product/modify/**","/product/delete/**").hasAnyRole("ProductManager","Admin")
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() // 로그인 관련 설정

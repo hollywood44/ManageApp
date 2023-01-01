@@ -53,5 +53,5 @@ public interface MemberService extends UserDetailsService {
     public MemberDto modifyMemberAuth(String memberId,String auth);
 
     // 회원 탈퇴
-    public String deleteMember(String memberId);
+    public String deleteMember(String memberId,Member member);
 }
